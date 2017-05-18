@@ -56,22 +56,25 @@ var facing = "NORTH";
 var direction = ["NORTH", "EAST", "SOUTH", "WEST"];
 
 //Simple solution to "rover's positioning"...
-var x = 5
-var y = 5
+var x = 4
+var y = 7
 //and combine em together...
-var rPosition = [x,y];
+var rPosition = [x, y];
 
 //With this, let's place some obstacles with some cool descriptions...
 
 //Giant mountain!
 var gMountain = [4, 8];
 var gDesc = "We've found a gigantic mountain, much bigger than Everest on earth!\nWhat a discovery!"
+var gDiscovered = false;
 //Alien artifact!
 var aArtifact = [7, 3];
 var aDesc = "Incredible! This is an alien artifact! There could have been life on Mars!"
+var aDiscovered = false;
 //A crashed earth satilite!
 var cSatilite = [2, 10];
 var sDesc = "It's one of our earlier satilites sent out generations ago!\nI wonder what data is stored within?"
+var sDiscovered = false;
 
 //When the object's array equals the array of the rover's position, the rover will "bump" into it and retain its
 // previous position, announcing the description of the object it bumped into.
@@ -100,6 +103,7 @@ function intro() {
 
 }
 
+//The main screen which the player will be using often to navigate Mars...
 function main() {
 	//Wipe screen and continue.
 	wipeScreen();
@@ -112,10 +116,44 @@ function main() {
 		if (facing == "NORTH" && command == "f") {
 			y += 1;
 			rPosition = [x,y];
-			console.log(rPosition);
+			check();
+			//console.log(rPosition);
 		}
 
 	});
+}
+
+//Obstacle checking...
+function check() {
+	//For the sake of time constraints, the position checking is a little messy...
+	if (rPosition[0] == gMountain[0] && rPosition[1] == gMountain[1] && gDiscovered == false) {
+		
+		x = 4;
+		y = 7;
+		rPosition = [x,y];
+		console.log("\nYou've bumped into an object! Let's get in front\nof it and see what it is...")
+		sleep(2000);
+		sleep(2000);
+		wipeScreen();
+		console.log(gDesc);
+		sleep(2000);
+		sleep(2000);
+		
+		discoveries += 1;
+		gDiscovered = true;
+		userPrompt.question("Hit Enter to continue.", function(entry) {
+			main();
+		});
+	} else if (rPosition[0,1] == gMountain[0,1] && gDiscovered == true) {
+		x = 4;
+		y = 7;
+		rPosition = [x,y];
+		console.log ("\nWe've already discovered this mountain! Let's move back to "+rPosition+"...")
+		
+		userPrompt.question("Hit Enter to continue.", function(entry) {
+			main();
+		});
+	}
 }
 
 
