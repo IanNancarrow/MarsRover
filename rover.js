@@ -281,7 +281,7 @@ function check() {
 		sleep(2000);
 		
 		discoveries += 1;
-		cDiscovered = true;
+		sDiscovered = true;
 			main();
 	} else if (rPosition[0] == cSatilite[0] && rPosition[1] == cSatilite[1] && sDiscovered == true) {
 		x = 2;
