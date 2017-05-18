@@ -1,4 +1,5 @@
-// tools
+// ~Ian Nancarrow, 05/18/2017
+// -----tools-----
 var userInput = require('readline');
 var userPrompt = userInput.createInterface(process.stdin, process.stdout);
 
@@ -10,7 +11,24 @@ userPrompt.question("", function(entry) {
 
 */
 
-// design
+//Delay the screen function...
+var sleep = function(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+		if ((new Date().getTime() - start) > milliseconds){
+		break;
+		}
+    }
+};
+
+//Wipe the screen function...
+var wipeScreen = function () {
+	return process.stdout.write('\033c');
+};
+
+
+
+// -----design-----
 
 //We want the rover to explore and find 3 objects on the "mars surface" of a grid of 10x10
 //3 predetermined locations
@@ -28,14 +46,14 @@ userPrompt.question("", function(entry) {
 // and restrictions to warp the player back to 0's or 10's depending on how great or small their x and y numbers are.
 
 
-// variables
+// -----variables-----
 
 
 //Starting facing will be north
-var facing = "north";
+var facing = "NORTH";
 //If the player chooses to rotate, they'll increase the array by one for right, decrease by one for left - cycling the array
 //to make it easier to choose new directions.
-var direction = ["north", "east", "south", "west"];
+var direction = ["NORTH", "EAST", "SOUTH", "WEST"];
 
 //Simple solution to "rover's positioning"...
 var x = 5
@@ -67,16 +85,40 @@ var discoveries = 0;
 
 
 
-// objects
+// -----objects?-----
 
 
 
-// messages
+// -----messages?-----
 
 
 
-// functions
+// -----functions-----
+
+function intro() {
+	console.log("Welcome to the Mars Rover Application!");
+
+}
+
+function main() {
+	//Wipe screen and continue.
+	wipeScreen();
+	console.log("Rover's current position is at \n"+rPosition+" facing "+facing);
+	console.log("[F] - Forwards  | [B] - Backward");
+	console.log("[L] - Turn Left | [R] - Turn Right\n");
+	console.log("Type the letter command then hit Enter to execute.");
+	userPrompt.question("Command: ", function(entry) {
+		command = entry.toLowerCase();
+		if (facing == "NORTH" && command == "f") {
+			y += 1;
+			rPosition = [x,y];
+			console.log(rPosition);
+		}
+
+	});
+}
 
 
 
-//
+// -----executors-----
+main();
