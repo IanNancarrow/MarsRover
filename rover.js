@@ -254,7 +254,7 @@ function check() {
 		sleep(2000);
 		
 		discoveries += 1;
-		gDiscovered = true;
+		aDiscovered = true;
 			main();
 	} else if (rPosition[0] == aArtifact[0] && rPosition[1] == aArtifact[1] && aDiscovered == true) {
 		x = 7;
@@ -281,7 +281,7 @@ function check() {
 		sleep(2000);
 		
 		discoveries += 1;
-		gDiscovered = true;
+		cDiscovered = true;
 			main();
 	} else if (rPosition[0] == cSatilite[0] && rPosition[1] == cSatilite[1] && sDiscovered == true) {
 		x = 2;
